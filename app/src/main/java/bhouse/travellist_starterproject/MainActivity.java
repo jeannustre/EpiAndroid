@@ -2,15 +2,21 @@ package bhouse.travellist_starterproject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
 
 
 public class MainActivity extends Activity {
 
+  private RecyclerView mRecyclerView;
+  private StaggeredGridLayoutManager mStaggeredLayoutManager;
   private Menu menu;
   private boolean isListView;
+  private EpiListAdapter mAdapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +24,12 @@ public class MainActivity extends Activity {
     setContentView(R.layout.activity_main);
 
     isListView = true;
+    mRecyclerView = (RecyclerView) findViewById(R.id.list);
+    mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+    mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+
+    mAdapter = new EpiListAdapter(this);
+    mRecyclerView.setAdapter(mAdapter);
   }
 
   private void setUpActionBar() {
