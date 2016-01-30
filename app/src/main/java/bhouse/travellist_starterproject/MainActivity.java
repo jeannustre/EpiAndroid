@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
   private StaggeredGridLayoutManager mStaggeredLayoutManager;
   private Menu menu;
   private boolean isListView;
-  private EpiListAdapter mAdapter;
+//  private EpiListAdapter mAdapter;
 
   /**/
   private API                   api = new API();
@@ -58,17 +58,17 @@ public class MainActivity extends Activity {
 //    mAdapter.setOnItemClickListener(onItemClickListener);
   }
 
-  EpiListAdapter.OnItemClickListener onItemClickListener = new EpiListAdapter.OnItemClickListener() {
-    @Override
-    public void onItemClick(View v, int position) {
-      Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
-      Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-      intent.putExtra(DetailActivity.EXTRA_PARAM_ID, position);
-      startActivity(intent);
-    }
-
-
-  };
+//  EpiListAdapter.OnItemClickListener onItemClickListener = new EpiListAdapter.OnItemClickListener() {
+//    @Override
+//    public void onItemClick(View v, int position) {
+//      Toast.makeText(MainActivity.this, "Clicked " + position, Toast.LENGTH_SHORT).show();
+//      Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+//      intent.putExtra(DetailActivity.EXTRA_PARAM_ID, position);
+//      startActivity(intent);
+//    }
+//
+//
+//  };
 
   private void setUpActionBar() {
 
@@ -144,16 +144,25 @@ public class MainActivity extends Activity {
       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
         System.out.println("profileInformationRequest::onSuccess()");
-        try {
-            String logTime = response.getJSONObject("nsstat").getString("active") + " h";
-            ((TextView) findViewById(R.id.loginTextView)).setText(response.getString("login"));
-            ((TextView) findViewById(R.id.nameTextView)).setText(response.getString("title"));
-            ((TextView) findViewById(R.id.yearTextView)).setText(response.getString("promo"));
-            ((TextView) findViewById(R.id.gpaTextView)).setText(response.getJSONArray("gpa").getJSONObject(0).getString("gpa"));
-            ((TextView) findViewById(R.id.logTimeTextView)).setText(logTime);
-            Picasso.with(getApplicationContext()).load(response.getString("picture")).into((ImageView)findViewById(R.id.profilPicture));
-        }
-        catch (JSONException e) { e.printStackTrace(); }
+          Profile profile = new Profile(response);
+
+            ((TextView) findViewById(R.id.loginTextView)).setText(profile.login);
+            ((TextView) findViewById(R.id.nameTextView)).setText(profile.firstName);
+            ((TextView) findViewById(R.id.yearTextView)).setText(profile.year);
+            ((TextView) findViewById(R.id.gpaTextView)).setText(profile.gpa);
+            ((TextView) findViewById(R.id.logTimeTextView)).setText(profile.activeTime);
+            Picasso.with(getApplicationContext()).load(profile.pictureSrc).into((ImageView)findViewById(R.id.profilPicture));
+
+//        try {
+//            String logTime = response.getJSONObject("nsstat").getString("active") + " h";
+//            ((TextView) findViewById(R.id.loginTextView)).setText(response.getString("login"));
+//            ((TextView) findViewById(R.id.nameTextView)).setText(response.getString("title"));
+//            ((TextView) findViewById(R.id.yearTextView)).setText(response.getString("promo"));
+//            ((TextView) findViewById(R.id.gpaTextView)).setText(response.getJSONArray("gpa").getJSONObject(0).getString("gpa"));
+//            ((TextView) findViewById(R.id.logTimeTextView)).setText(logTime);
+//            Picasso.with(getApplicationContext()).load(response.getString("picture")).into((ImageView)findViewById(R.id.profilPicture));
+//        }
+//        catch (JSONException e) { e.printStackTrace(); }
       }
 
       @Override
