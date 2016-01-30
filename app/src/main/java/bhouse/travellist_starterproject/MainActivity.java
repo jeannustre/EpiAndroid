@@ -9,9 +9,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class MainActivity extends Activity {
@@ -22,19 +32,30 @@ public class MainActivity extends Activity {
   private boolean isListView;
   private EpiListAdapter mAdapter;
 
+  /**/
+  private API                   api = new API();
+  private AutoCompleteTextView  userLogin;
+  private EditText              userPwd;
+  /**/
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.login_layout);
 
-    isListView = true;
-    mRecyclerView = (RecyclerView) findViewById(R.id.list);
-    mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-    mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+    userLogin = (AutoCompleteTextView) findViewById(R.id.loginTextField);
+    userPwd = (EditText) findViewById(R.id.passwordTextField);
 
-    mAdapter = new EpiListAdapter(this);
-    mRecyclerView.setAdapter(mAdapter);
-    mAdapter.setOnItemClickListener(onItemClickListener);
+
+//    isListView = true;
+//    mRecyclerView = (RecyclerView) findViewById(R.id.list);
+//    mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+//    mRecyclerView.setLayoutManager(mStaggeredLayoutManager);
+//
+//    mAdapter = new EpiListAdapter(this);
+//    mRecyclerView.setAdapter(mAdapter);
+//    mAdapter.setOnItemClickListener(onItemClickListener);
   }
 
   EpiListAdapter.OnItemClickListener onItemClickListener = new EpiListAdapter.OnItemClickListener() {
@@ -84,4 +105,66 @@ public class MainActivity extends Activity {
       isListView = true;
     }
   }
+
+  /* called by connectButton.onClick() */
+  public boolean  connection(View _connectionView) {
+
+    if (!api.connect(userLogin.getText().toString(), userPwd.getText().toString()))
+      return false;
+
+    System.out.println("Token = " + api.session_token);
+    api.retrieveProfileInformation(userLogin.getText().toString(), profileInformationRequest());
+    setContentView(R.layout.profil_layout);
+    return true;
+  }
+
+  /* Used as debug for profil_layout refresh button */
+  public void   refreshProfileInformation(View _profileView) {
+    api.retrieveProfileInformation(((EditText)(findViewById(R.id.loginSearchTextField))).getText().toString(), profileInformationRequest());
+  }
+
+  /* Fill the login_layout with __user__ information */
+  public JsonHttpResponseHandler   profileInformationRequest() {
+    JsonHttpResponseHandler r = new JsonHttpResponseHandler() {
+
+      @Override
+      public void onStart() {
+        super.onStart();
+        System.out.println("profileInformationRequest::onStart()");
+
+      }
+
+      @Override
+      public void onFinish() {
+        super.onFinish();
+        System.out.println("profileInformationRequest::onFinish()");
+      }
+
+      @Override
+      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+        super.onSuccess(statusCode, headers, response);
+        System.out.println("profileInformationRequest::onSuccess()");
+        try {
+            String logTime = response.getJSONObject("nsstat").getString("active") + " h";
+            ((TextView) findViewById(R.id.loginTextView)).setText(response.getString("login"));
+            ((TextView) findViewById(R.id.nameTextView)).setText(response.getString("title"));
+            ((TextView) findViewById(R.id.yearTextView)).setText(response.getString("promo"));
+            ((TextView) findViewById(R.id.gpaTextView)).setText(response.getJSONArray("gpa").getJSONObject(0).getString("gpa"));
+            ((TextView) findViewById(R.id.logTimeTextView)).setText(logTime);
+            Picasso.with(getApplicationContext()).load(response.getString("picture")).into((ImageView)findViewById(R.id.profilPicture));
+        }
+        catch (JSONException e) { e.printStackTrace(); }
+      }
+
+      @Override
+      public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+        super.onFailure(statusCode, headers, responseString, throwable);
+        System.out.println("____profileInformationRequest() : Failed to retrieve user information");
+      }
+    };
+
+    return r;
+  }
+
+
 }

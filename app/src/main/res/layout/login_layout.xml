@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <AutoCompleteTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginTextField"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="0dp"
+        android:hint="Enter login"
+        android:layout_above="@+id/passwordTextField"
+        android:layout_alignStart="@+id/passwordTextField"
+        android:layout_marginBottom="81dp"
+        android:layout_alignEnd="@+id/passwordTextField" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/passwordTextField"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:hint="Enter password" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="{ CONNECT }"
+        android:id="@+id/connectionButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp"
+        android:textColor="#ffffff"
+        android:background="#05c0ff"
+        android:onClick="connection" />
+
+</RelativeLayout>

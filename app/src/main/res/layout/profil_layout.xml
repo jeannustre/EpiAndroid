@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme"
+    android:id="@+id/aasch_j">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profilPicture"
+        android:layout_alignParentStart="true"
+        android:background="#f39595" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/gpaTextView"
+        android:layout_toEndOf="@+id/profilPicture"
+        android:layout_marginStart="38dp"
+        android:layout_below="@+id/nameTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/loginTextView"
+        android:layout_below="@+id/profilPicture"
+        android:layout_toEndOf="@+id/refreshProfileButton"
+        android:layout_marginTop="93dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/nameTextView"
+        android:layout_alignTop="@+id/loginTextView"
+        android:layout_toStartOf="@+id/refreshProfileButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/yearTextView"
+        android:layout_below="@+id/gpaTextView"
+        android:layout_alignStart="@+id/gpaTextView"
+        android:layout_marginTop="78dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/refreshProfileButton"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/gpaTextView"
+        android:onClick="refreshProfileInformation"
+        android:layout_marginBottom="47dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginSearchTextField"
+        android:layout_above="@+id/refreshProfileButton"
+        android:layout_centerHorizontal="true"
+        android:hint="search by login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/logTimeTextView"
+        android:layout_alignTop="@+id/yearTextView"
+        android:layout_alignStart="@+id/loginTextView" />
+</RelativeLayout>
