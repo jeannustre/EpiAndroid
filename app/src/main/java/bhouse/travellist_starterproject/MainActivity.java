@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.gson.Gson;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 //  private EpiListAdapter mAdapter;
 
   /**/
-  private API                   api = new API();
+  public  API                   api = new API();
   private AutoCompleteTextView  userLogin;
   private EditText              userPwd;
   /**/
@@ -106,6 +106,16 @@ public class MainActivity extends Activity {
     }
   }
 
+
+    public void     switchToFullView(View v)
+    {
+        Intent intentMyAccount = new Intent(getApplicationContext(), UserActivity.class);
+
+        intentMyAccount.putExtra("userLogin", userLogin.getText().toString());
+        intentMyAccount.putExtra("session_token", api.session_token);
+        startActivity(intentMyAccount);
+    }
+
   /* called by connectButton.onClick() */
   public boolean  connection(View _connectionView) {
 
@@ -122,6 +132,8 @@ public class MainActivity extends Activity {
   public void   refreshProfileInformation(View _profileView) {
     api.retrieveProfileInformation(((EditText)(findViewById(R.id.loginSearchTextField))).getText().toString(), profileInformationRequest());
   }
+
+
 
   /* Fill the login_layout with __user__ information */
   public JsonHttpResponseHandler   profileInformationRequest() {
@@ -143,15 +155,21 @@ public class MainActivity extends Activity {
       @Override
       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
         super.onSuccess(statusCode, headers, response);
-        System.out.println("profileInformationRequest::onSuccess()");
+
+          System.out.println("profileInformationRequest::onSuccess()");
           Profile profile = new Profile(response);
 
-            ((TextView) findViewById(R.id.loginTextView)).setText(profile.login);
-            ((TextView) findViewById(R.id.nameTextView)).setText(profile.firstName);
-            ((TextView) findViewById(R.id.yearTextView)).setText(profile.year);
-            ((TextView) findViewById(R.id.gpaTextView)).setText(profile.gpa);
-            ((TextView) findViewById(R.id.logTimeTextView)).setText(profile.activeTime);
-            Picasso.with(getApplicationContext()).load(profile.pictureSrc).into((ImageView)findViewById(R.id.profilPicture));
+          System.out.println("profile.login = " + profile.login);
+          System.out.println("profile.firstName = " + profile.firstName);
+          System.out.println("profile.year = " + profile.year);
+          System.out.println("profile.gpa = " + profile.gpa);
+          System.out.println("profile.activeTime = " + profile.activeTime);
+          ((TextView) findViewById(R.id.loginTextView)).setText(profile.login);
+          ((TextView) findViewById(R.id.nameTextView)).setText(profile.firstName);
+          ((TextView) findViewById(R.id.yearTextView)).setText(profile.year);
+          ((TextView) findViewById(R.id.gpaTextView)).setText(profile.gpa);
+          ((TextView) findViewById(R.id.logTimeTextView)).setText(profile.activeTime);
+          Picasso.with(getApplicationContext()).load(profile.pictureSrc).into((ImageView)findViewById(R.id.profilPicture));
 
 //        try {
 //            String logTime = response.getJSONObject("nsstat").getString("active") + " h";

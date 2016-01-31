@@ -22,7 +22,7 @@
     </activity>
 
     <activity
-      android:name=".DetailActivity"
+      android:name=".UserActivity"
       android:screenOrientation="portrait">
     </activity>
 

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 /**
  * Created by Jamais on 30/01/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Profile {
     public String firstName;
     public String lastName;
@@ -20,9 +21,16 @@ public class Profile {
     public Profile (JSONObject jsonProfile) {
         try {
             firstName = jsonProfile.getString("firstname");
-            lastName  = jsonProfile.getString("lastName");
+            lastName  = jsonProfile.getString("lastname");
             login = jsonProfile.getString("login");
-            email = jsonProfile.getJSONObject("userinfo").getJSONObject("email").getString("value");
+//            try {
+//                JSONObject email = jsonProfile.getJSONObject("userinfo");
+//                System.out.println("EMAIL ===> " + email.toString());
+////                JSONObject email2 = email.getJSONObject("email");
+//                //               System.out.println("EMAIL ===> " + email2.getString("value"));
+//
+//            } catch (JSONException e) {}
+////            email = jsonProfile.getJSONObject("userinfo").getJSONObject("email").getString("value");
             pictureSrc = jsonProfile.getString("picture");
             year = jsonProfile.getString("promo");
             gpa = jsonProfile.getJSONArray("gpa").getJSONObject(0).getString("gpa");

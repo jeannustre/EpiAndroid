@@ -7,6 +7,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
+import com.google.gson.Gson;
 
 /**
  * Created by Jamais on 29/01/2016.
