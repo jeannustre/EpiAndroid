@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AppTheme"
     android:id="@+id/profil_layout"
     tools:context=".MainActivity">
 
@@ -19,17 +18,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/gpaTextView"
+        android:id="@+id/entry_gpaTextView"
         android:layout_toEndOf="@+id/profilPicture"
         android:layout_marginStart="38dp"
-        android:layout_below="@+id/nameTextView" />
+        android:layout_below="@+id/entry_nameTextView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/loginTextView"
+        android:id="@+id/entry_loginTextView"
         android:layout_below="@+id/profilPicture"
         android:layout_toEndOf="@+id/refreshProfileButton"
         android:layout_marginTop="93dp" />
@@ -39,8 +38,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/nameTextView"
-        android:layout_alignTop="@+id/loginTextView"
+        android:id="@+id/entry_nameTextView"
+        android:layout_alignTop="@+id/entry_loginTextView"
         android:layout_toStartOf="@+id/refreshProfileButton" />
 
     <TextView
@@ -48,9 +47,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
-        android:id="@+id/yearTextView"
-        android:layout_below="@+id/gpaTextView"
-        android:layout_alignStart="@+id/gpaTextView"
+        android:id="@+id/entry_yearTextView"
+        android:layout_below="@+id/entry_gpaTextView"
+        android:layout_alignStart="@+id/entry_gpaTextView"
         android:layout_marginTop="78dp" />
 
     <Button
@@ -59,7 +58,7 @@
         android:text="Search"
         android:id="@+id/refreshProfileButton"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/gpaTextView"
+        android:layout_toEndOf="@+id/entry_gpaTextView"
         android:onClick="refreshProfileInformation"
         android:layout_marginBottom="47dp" />
 
@@ -77,8 +76,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/logTimeTextView"
-        android:layout_alignTop="@+id/yearTextView"
-        android:layout_alignStart="@+id/loginTextView" />
+        android:layout_alignTop="@+id/entry_yearTextView"
+        android:layout_alignStart="@+id/entry_loginTextView" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

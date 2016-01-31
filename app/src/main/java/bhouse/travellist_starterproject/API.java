@@ -46,6 +46,13 @@ public class API {
         client.get(API_addr + "user", p, callBack);
     }
 
+    public void retrieveUserMark(String user, JsonHttpResponseHandler callBack) {
+        RequestParams p = new RequestParams();
+
+        p.put("token", session_token);
+        client.get(API_addr + "marks", p, callBack);
+    }
+
 /*
 * pre-made requests called by API methods
 ********/

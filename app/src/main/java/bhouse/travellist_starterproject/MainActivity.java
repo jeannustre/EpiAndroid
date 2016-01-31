@@ -13,12 +13,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.google.gson.Gson;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
@@ -139,18 +137,6 @@ public class MainActivity extends Activity {
   public JsonHttpResponseHandler   profileInformationRequest() {
     JsonHttpResponseHandler r = new JsonHttpResponseHandler() {
 
-      @Override
-      public void onStart() {
-        super.onStart();
-        System.out.println("profileInformationRequest::onStart()");
-
-      }
-
-      @Override
-      public void onFinish() {
-        super.onFinish();
-        System.out.println("profileInformationRequest::onFinish()");
-      }
 
       @Override
       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -164,23 +150,13 @@ public class MainActivity extends Activity {
           System.out.println("profile.year = " + profile.year);
           System.out.println("profile.gpa = " + profile.gpa);
           System.out.println("profile.activeTime = " + profile.activeTime);
-          ((TextView) findViewById(R.id.loginTextView)).setText(profile.login);
-          ((TextView) findViewById(R.id.nameTextView)).setText(profile.firstName);
-          ((TextView) findViewById(R.id.yearTextView)).setText(profile.year);
-          ((TextView) findViewById(R.id.gpaTextView)).setText(profile.gpa);
-          ((TextView) findViewById(R.id.logTimeTextView)).setText(profile.activeTime);
+          ((TextView) findViewById(R.id.entry_loginTextView)).setText(profile.login);
+          ((TextView) findViewById(R.id.entry_nameTextView)).setText(profile.firstName);
+          ((TextView) findViewById(R.id.entry_yearTextView)).setText(profile.year);
+          ((TextView) findViewById(R.id.entry_gpaTextView)).setText(profile.gpa);
+//          ((TextView) findViewById(R.id.logTimeTextView)).setText(profile.activeTime);
           Picasso.with(getApplicationContext()).load(profile.pictureSrc).into((ImageView)findViewById(R.id.profilPicture));
 
-//        try {
-//            String logTime = response.getJSONObject("nsstat").getString("active") + " h";
-//            ((TextView) findViewById(R.id.loginTextView)).setText(response.getString("login"));
-//            ((TextView) findViewById(R.id.nameTextView)).setText(response.getString("title"));
-//            ((TextView) findViewById(R.id.yearTextView)).setText(response.getString("promo"));
-//            ((TextView) findViewById(R.id.gpaTextView)).setText(response.getJSONArray("gpa").getJSONObject(0).getString("gpa"));
-//            ((TextView) findViewById(R.id.logTimeTextView)).setText(logTime);
-//            Picasso.with(getApplicationContext()).load(response.getString("picture")).into((ImageView)findViewById(R.id.profilPicture));
-//        }
-//        catch (JSONException e) { e.printStackTrace(); }
       }
 
       @Override

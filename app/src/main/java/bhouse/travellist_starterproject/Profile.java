@@ -17,21 +17,18 @@ public class Profile {
     public String gpa;
     public String activeTime;
 
-
+    public Profile  () {
+        super();
+    }
     public Profile (JSONObject jsonProfile) {
+        super();
+
         try {
             firstName = jsonProfile.getString("firstname");
             lastName  = jsonProfile.getString("lastname");
             login = jsonProfile.getString("login");
-//            try {
-//                JSONObject email = jsonProfile.getJSONObject("userinfo");
-//                System.out.println("EMAIL ===> " + email.toString());
-////                JSONObject email2 = email.getJSONObject("email");
-//                //               System.out.println("EMAIL ===> " + email2.getString("value"));
-//
-//            } catch (JSONException e) {}
-////            email = jsonProfile.getJSONObject("userinfo").getJSONObject("email").getString("value");
             pictureSrc = jsonProfile.getString("picture");
+            email = jsonProfile.getString("internal_email");
             year = jsonProfile.getString("promo");
             gpa = jsonProfile.getJSONArray("gpa").getJSONObject(0).getString("gpa");
             activeTime = jsonProfile.getJSONObject("nsstat").getString("active");
